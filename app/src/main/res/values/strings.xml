@@ -6,7 +6,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Vision</string>
-    <string name="nav_header_subtitle">Look Ahead</string>
+    <string name="nav_header_subtitle">Vision Made Simple</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">About Us</string>
     <string name="tab_text_1">Notices</string>
@@ -62,4 +62,21 @@
         <item>Student</item>
         <item>Counsellor</item>
     </string-array>
+    <string name="title_activity_student">StudentActivity</string>
+    <string name="title_activity_welcome">Welcome</string>
+    <string name="swagat">Hey Buddy!!</string>
+    <string name="select">Select Your Areas Of Interests:</string>
+    <string name="ist">Mathematics</string>
+    <string name="second">Biology</string>
+    <string name="third">General Knowledge</string>
+    <string name="fourth">Economics</string>
+    <string name="Fifth">Technology</string>
+    <string name="Sixth">Computer Science</string>
+    <string name="seventh">Cricket</string>
+    <string name="eight">Football</string>
+    <string name="ninth">Badminton</string>
+    <string name="tenth">Geography</string>
+    <string name="eleventh">Politics</string>
+    <string name="twelfth">Accounts</string>
+
 </resources>

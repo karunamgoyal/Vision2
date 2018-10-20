@@ -23,9 +23,10 @@ public class MainActivity extends AppCompatActivity {
     Button a;
     TextView textView;
     private String ausername;
+
     private String str = "Message Checking";
     private String password;
-
+    private RegisterAdminUser rUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,18 @@ public class MainActivity extends AppCompatActivity {
                     final String p = textView2.getText().toString();
                     if (!u.equals("")) {
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("adminusers").child(u);
+                        DatabaseReference refrenceUser=FirebaseDatabase.getInstance().getReference().child("registeradminuser").child(u);
+                        refrenceUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                rUser=dataSnapshot.getValue(RegisterAdminUser.class);
+                            }
 
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
 
                         reference.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -71,7 +83,13 @@ public class MainActivity extends AppCompatActivity {
                                         ausername = u;
                                         editor.putString("user", u);
                                         editor.commit();
-                                        sendMessage();
+                                        if(rUser.getUserType().equals("Student")){
+                                            sendMessage();
+                                        }
+                                        else{
+                                            sendNotice();
+                                        }
+
                                         Log.v("Checkingmsg","11");
                                     } else {
                                         Snackbar.make(view, "Wrong Password", Snackbar.LENGTH_LONG)
@@ -112,15 +130,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendMessage() {
         Log.v("Checkingmsg","11");
-        /*Intent intent = new Intent(this, ParentActivity.class);
+        Intent intent = new Intent(this, GetStarted.class);
         intent.putExtra(str, ausername);
         startActivity(intent);
-        Log.v("Checkingmsg","11");*/
+        Log.v("Checkingmsg","11");
     }
+    public void sendNotice(){
 
+    }
     public void register(View v) {
-       /* Intent intent = new Intent(this, Register.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this, Register.class);
+        startActivity(intent);
     }
 
     @Override
