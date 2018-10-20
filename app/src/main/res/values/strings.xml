@@ -1,3 +1,65 @@
 <resources>
     <string name="app_name">Vision</string>
+    <string name="button">LOG IN</string>
+    <string name="button2">REGISTER</string>
+    <string name="title_activity_main2">Vision</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Vision</string>
+    <string name="nav_header_subtitle">Look Ahead</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">About Us</string>
+    <string name="tab_text_1">Notices</string>
+    <string name="tab_text_2">Discuss</string>
+    <string name="tab_text_3">Profile</string>
+    <string name="user_name">UserName</string>
+    <string name="pass_word">Password</string>
+    <string name="rem">Remember Me</string>
+    <string name="but">Login</string>
+    <string name="newbut">Register</string>    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="imageView">Profile Photo</string>
+    <string name="button3">Add Photo</string>
+    <string name="input1">Name</string>
+    <string name="rollno">Roll No</string>
+    <string name="phnumber">Mobile No.</string>
+    <string name="email">Email Id</string>
+    <string name="hostelno">Hostel No.</string>
+    <string name="roomno">Room No.</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="button4">SUBMIT</string>
+    <string name="welcome_msg">Welcome!</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="contacts_permission_rationale">Access to account information is required to sign in.</string>
+    <string name="invite_menu_label">Invite</string>
+    <string name="invitation_message">Please join me for a friendly chat</string>
+    <string name="invitation_cta">Call to action</string>
+    <string name="invitation_title">Friendly Chat Invite</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="fresh_config">Fresh Config</string>
+    <string name="cause_crash">Cause Crash</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="title_home">Notices</string>
+    <string name="title_dashboard">Discussion</string>
+    <string name="title_notifications">Profile</string>
+    <string name="title_activity_main3">Vision</string>
+    <string name="title_activity_main4">Vision</string>
+    <string name="title_activity_complaint">Register Complaint</string>
+    <string name="title_activity_user_complaint">Register Complaint</string>
+    <string name="Sel">Select your issue:</string>
+    <string name="ava">Select Availability Time:</string>
+    <string name="car">Carpenter</string>
+    <string name="Desc">Describe your issue...</string>
+    <string name="ele">Electrician</string>
+    <string name="plu">LAN</string>
+    <string name="Other">Other</string>
+    <string name="comp">Would you like to receive notifications?</string>
+    <string name="title_activity_profile_setting">ProfileSetting</string>
+    <string name="title_activity_parent">Servizy</string>
+    <string-array name="spinnerregister">
+        <item>Student</item>
+        <item>Counsellor</item>
+    </string-array>
 </resources>

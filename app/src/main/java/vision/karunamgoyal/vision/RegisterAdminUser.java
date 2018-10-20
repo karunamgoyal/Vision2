@@ -5,19 +5,19 @@ public class RegisterAdminUser {
 
     private String mail;
     private String phno;
-
-    private String hno;
+    private String userType;
     public RegisterAdminUser(){
 
     }
-    public RegisterAdminUser(String name,String mail,String phno,String hno){
+    public RegisterAdminUser(String name,String mail,String phno,String userType){
         this.name=name;
 
 
         this.mail=mail;
         this.phno=phno;
+        this.userType=userType;
 
-        this.hno=hno;
+
     }
     public String getName(){
         return this.name;
@@ -28,9 +28,8 @@ public class RegisterAdminUser {
     public String getPhno(){
         return this.phno;
     }
-
-    public String getHno(){
-        return this.hno;
+    public String  getUserType(){
+        return this.userType;
     }
 
 
