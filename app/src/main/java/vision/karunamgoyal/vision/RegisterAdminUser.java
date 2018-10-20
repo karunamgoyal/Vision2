@@ -6,6 +6,12 @@ public class RegisterAdminUser {
     private String mail;
     private String phno;
     private String userType;
+    private String id;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public RegisterAdminUser(){
 
     }

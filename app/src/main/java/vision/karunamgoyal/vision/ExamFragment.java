@@ -46,6 +46,17 @@ public class ExamFragment extends Fragment {
     public ExamFragment() {
         // Required empty public constructor
     }
+    @Override
+    public void onStop() {
+        super.onStop();
+        mFirebaseAdapter.stopListening();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mFirebaseAdapter.startListening();
+    }
 
 
 
@@ -159,7 +170,10 @@ public class ExamFragment extends Fragment {
 
                         putViewHolder(viewHolder,position,friendlyMessage);
                     }
+                    else{
+                        viewHolder.cardview.setVisibility(CardView.GONE);
 
+                    }
 
 
 
@@ -214,7 +228,7 @@ public class ExamFragment extends Fragment {
     public void putViewHolder(final ExamFragment.MessageViewHolder viewHolder,
                               int position,
                               final Exam friendlyMessage){
-        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+
         // viewHolder.imageview.setImageResource(R.drawable.notice);
         viewHolder.examNameView.setText(friendlyMessage.getExamName());
         viewHolder.cardview.setVisibility(CardView.VISIBLE);

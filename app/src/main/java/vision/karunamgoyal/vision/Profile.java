@@ -5,8 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,31 +15,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
-public class StudentActivity extends AppCompatActivity
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static String ausername;
     private String str = "Message Checking";
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private ViewPageAdapter viewPageAdapter;
+    TextView name;
+    TextView username;
+
+
+    TextView email;
+    TextView mobileNo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student);
+        setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent in = getIntent();
         ausername = in.getStringExtra(str);
-        tabLayout=findViewById(R.id.tabLayout);
-        viewPager=findViewById(R.id.viewPager);
-        viewPageAdapter=new ViewPageAdapter(getSupportFragmentManager());
-        //Add fragmentViewPageAdapter
-        viewPageAdapter.AddFragment(new ExamFragment(),"Exams");
-        viewPageAdapter.AddFragment(new InstituteFragment(),"Institutes");
-        viewPageAdapter.AddFragment(new StudyFragment(),"Study");
-        viewPager.setAdapter(viewPageAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -49,6 +53,39 @@ public class StudentActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        username = (TextView) findViewById(R.id.usernameprofile);
+        name = (TextView) findViewById(R.id.nameprofile);
+        email = (TextView) findViewById(R.id.email);
+        mobileNo = (TextView) findViewById(R.id.contactno);
+
+        Log.v("checkingprofile","13");
+        Log.v("checkingprofile","14");
+        if (!ausername.equals("")) {
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("registeradminuser").child(ausername);
+
+            Log.v("checkingprofile","14");
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        RegisterAdminUser user = dataSnapshot.getValue(RegisterAdminUser.class);
+                        username.setText(ausername);
+                        name.setText(user.getName());
+                        email.setText(user.getMail());
+                        mobileNo.setText(user.getPhno());
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+
+                }
+            });
+        }
+
     }
 
     @Override
@@ -61,11 +98,10 @@ public class StudentActivity extends AppCompatActivity
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.student, menu);
+        getMenuInflater().inflate(R.menu.profile, menu);
         return true;
     }
 
@@ -78,7 +114,14 @@ public class StudentActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent =new Intent(this,AppSettings.class);
+            Intent intent=new Intent(this,AppSettings.class);
+            intent.putExtra(str, ausername);
+            startActivity(intent);
+            return true;
+        }
+        else if(id==R.id.action_settings1)
+        {
+            Intent intent=new Intent(this,ProfileSetting.class);
             intent.putExtra(str, ausername);
             startActivity(intent);
             return true;
@@ -93,18 +136,17 @@ public class StudentActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+
         if (id == R.id.nav_camera) {
+            Intent in = new Intent(this, StudentActivity.class);
+            in.putExtra(str, ausername);
+            startActivity(in);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            Intent intent =new Intent(this,CounsellorProfile.class);
-            intent.putExtra(str, ausername);
-            startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
 
-            Intent intent =new Intent(this,Profile.class);
-            intent.putExtra(str, ausername);
-            startActivity(intent);
+
         } else if (id == R.id.nav_manage) {
             SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
             final SharedPreferences.Editor editor = pref.edit();
@@ -119,11 +161,11 @@ public class StudentActivity extends AppCompatActivity
             intent.putExtra(str, ausername);
             startActivity(intent);
         }
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-    public static String getMyData() {
-        return ausername;
     }
 }

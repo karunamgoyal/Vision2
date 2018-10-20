@@ -148,6 +148,9 @@ public class ProfileSetting extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
+            Intent intent =new Intent(this,ProfileSetting.class);
+            intent.putExtra(str, ausername);
+            startActivity(intent);
 
         } else if (id == R.id.nav_manage) {
             SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -157,6 +160,11 @@ public class ProfileSetting extends AppCompatActivity
             Intent in = new Intent(this, MainActivity.class);
             startActivity(in);
 
+        }
+        else if(id==R.id.nav_discuss){
+            Intent intent =new Intent(this,DiscussActivity.class);
+            intent.putExtra(str, ausername);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
