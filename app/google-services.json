@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "263110305159",
+    "firebase_url": "https://vision-ffa7f.firebaseio.com",
+    "project_id": "vision-ffa7f",
+    "storage_bucket": "vision-ffa7f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263110305159:android:0fbf5dd10ec2780d",
+        "android_client_info": {
+          "package_name": "vision.karunamgoyal.vision"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263110305159-uchrogd3r8m9i163cgssugknkf8cnmak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsheTsVKzgXc1mzs3z-pJ1bED3ImEwcTA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
