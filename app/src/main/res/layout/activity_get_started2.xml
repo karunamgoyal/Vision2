@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GetStarted">
+    tools:context=".GetStarted2">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                     android:orientation="vertical">
 
                     <CheckBox
-                        android:id="@+id/checkBox"
+                        android:id="@+id/maths"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -87,7 +87,7 @@
                         android:textSize="15dp" />
 
                     <CheckBox
-                        android:id="@+id/checkBox7"
+                        android:id="@+id/tech"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -98,7 +98,7 @@
                         android:textSize="15dp" />
 
                     <CheckBox
-                        android:id="@+id/checkBox5"
+                        android:id="@+id/gk"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -109,7 +109,7 @@
                         android:textSize="15dp" />
 
                     <CheckBox
-                        android:id="@+id/checkBox8"
+                        android:id="@+id/pol"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -120,7 +120,7 @@
                         android:textSize="15dp" />
 
                     <CheckBox
-                        android:id="@+id/checkBox6"
+                        android:id="@+id/acc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -131,7 +131,7 @@
                         android:textSize="15dp" />
 
                     <CheckBox
-                        android:id="@+id/checkBox2"
+                        android:id="@+id/foot"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -148,7 +148,7 @@
                     android:orientation="vertical">
 
                     <CheckBox
-                        android:id="@+id/checkBox3"
+                        android:id="@+id/bio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -158,7 +158,7 @@
                         android:textSize="15dp" />
 
                     <CheckBox
-                        android:id="@+id/checkBox12"
+                        android:id="@+id/cs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -168,7 +168,7 @@
                         android:textSize="15dp" />
 
                     <CheckBox
-                        android:id="@+id/checkBox10"
+                        android:id="@+id/geo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -178,7 +178,7 @@
                         android:textSize="15dp" />
 
                     <CheckBox
-                        android:id="@+id/checkBox9"
+                        android:id="@+id/eco"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -188,7 +188,7 @@
                         android:textSize="15dp" />
 
                     <CheckBox
-                        android:id="@+id/checkBox11"
+                        android:id="@+id/cric"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -198,7 +198,7 @@
                         android:textSize="15dp" />
 
                     <CheckBox
-                        android:id="@+id/checkBox4"
+                        android:id="@+id/bad"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

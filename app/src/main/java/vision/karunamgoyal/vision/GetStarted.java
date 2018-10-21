@@ -1,8 +1,11 @@
 package vision.karunamgoyal.vision;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,7 +34,7 @@ public class GetStarted extends AppCompatActivity {
     CheckBox Politics;
     CheckBox Accounts;
     DatabaseReference mdatabadereference;
-   private Button button;
+    private Button button;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +75,11 @@ public class GetStarted extends AppCompatActivity {
                 Accounts=findViewById(R.id.checkBox6);
                 Interest interest=new Interest(Mathematics.isChecked(),Biology.isChecked(),GeneralKnowledge.isChecked(),Economics.isChecked(),Technology.isChecked(),ComputerScience.isChecked(),
                         Cricket.isChecked(),FootBall.isChecked(),Badminton.isChecked(),Geography.isChecked(),Politics.isChecked(),Accounts.isChecked());
-
+                Log.v("checkingtheerror","78");
                 mdatabadereference.setValue(interest);
-                            sendtoHomepage();
+                Log.v("checkingtheerror","78");
+
+                sendtoHomepage();
 
             }
         });
@@ -82,6 +87,12 @@ public class GetStarted extends AppCompatActivity {
 
     }
     public void sendtoHomepage(){
+        SharedPreferences pref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+
+
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("getstarted",true);
+        editor.commit();
         Intent intent = new Intent(this, StudentActivity.class);
         intent.putExtra(str, ausername);
         startActivity(intent);

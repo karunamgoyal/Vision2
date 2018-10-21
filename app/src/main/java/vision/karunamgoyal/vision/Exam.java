@@ -15,10 +15,11 @@ public class Exam {
         this.id = id;
     }
 
-    public Exam(String examName, String examConductor, String examURL) {
+    public Exam(String examName, String examConductor, String examURL, String examTag) {
         this.examName = examName;
         this.examConductor = examConductor;
         this.examURL = examURL;
+        this.examTag = examTag;
     }
 
     public Exam() {

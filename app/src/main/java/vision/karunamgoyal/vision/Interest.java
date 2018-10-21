@@ -1,83 +1,84 @@
 package vision.karunamgoyal.vision;
 
 public class Interest {
-    boolean  Mathematics;
-    boolean Biology;
-    boolean GeneralKnowledge;
-    boolean Economics;
-    boolean Technology;
-    boolean ComputerScience;
-    boolean Cricket;
-    boolean Football;
-    boolean Badminton;
-    boolean Geography;
-    boolean Politics;
-    boolean Accounts;
+    boolean mathematics;
+    boolean biology;
+    boolean generalKnowledge;
+    boolean economics;
+    boolean technology;
+    boolean computerScience;
+    boolean cricket;
+    boolean football;
+    boolean badminton;
+    boolean geography;
+    boolean politics;
+    boolean accounts;
 
     public Interest(boolean mathematics, boolean biology, boolean generalKnowledge, boolean economics, boolean technology, boolean computerScience, boolean cricket, boolean football, boolean badminton, boolean geography, boolean politics, boolean accounts) {
-        Mathematics = mathematics;
-        Biology = biology;
-        GeneralKnowledge = generalKnowledge;
-        Economics = economics;
-        Technology = technology;
-        ComputerScience = computerScience;
-        Cricket = cricket;
-        Football = football;
-        Badminton = badminton;
-        Geography = geography;
-        Politics = politics;
-        Accounts = accounts;
+        this.mathematics = mathematics;
+        this.biology = biology;
+        this.generalKnowledge = generalKnowledge;
+        this.economics = economics;
+        this.technology = technology;
+        this.computerScience = computerScience;
+        this.cricket = cricket;
+        this.football = football;
+        this.badminton = badminton;
+        this.geography = geography;
+        this.politics = politics;
+        this.accounts = accounts;
     }
-
-    public Interest() {
+    public Interest()
+    {
 
     }
 
     public boolean isMathematics() {
-        return Mathematics;
+        return mathematics;
     }
 
     public boolean isBiology() {
-        return Biology;
+        return biology;
     }
 
     public boolean isGeneralKnowledge() {
-        return GeneralKnowledge;
+        return generalKnowledge;
     }
 
     public boolean isEconomics() {
-        return Economics;
+        return economics;
     }
 
     public boolean isTechnology() {
-        return Technology;
+        return technology;
     }
 
     public boolean isComputerScience() {
-        return ComputerScience;
+        return computerScience;
     }
 
     public boolean isCricket() {
-        return Cricket;
+        return cricket;
     }
 
     public boolean isFootball() {
-        return Football;
+        return football;
     }
 
     public boolean isBadminton() {
-        return Badminton;
+        return badminton;
     }
 
     public boolean isGeography() {
-        return Geography;
+        return geography;
     }
 
     public boolean isPolitics() {
-        return Politics;
+        return politics;
     }
 
     public boolean isAccounts() {
-        return Accounts;
+        return accounts;
     }
 }
+

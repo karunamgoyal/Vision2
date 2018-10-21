@@ -3,6 +3,7 @@ package vision.karunamgoyal.vision;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,10 +30,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.SecureRandom;
+
 
 public class ExamFragment extends Fragment {
     View v;
-    public static final String MESSAGES_CHILD = "exams";
+    public static final String MESSAGES_CHILD = "exam";
     private RecyclerView mMessageRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private ProgressBar mProgressBar;
@@ -63,7 +66,26 @@ public class ExamFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ausername=StudentActivity.getMyData();
+        SharedPreferences pref = getActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = pref.edit();
+        String userType=pref.getString("userType","");
+        if(userType.equals("Student"))
+            ausername=StudentActivity.getMyData();
+        else
+            ausername=CounsellorActivity.getMyData();
+        myFirebaseDatabaseReference=FirebaseDatabase.getInstance().getReference().child("interest").child(ausername);
+        myFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                    interest =dataSnapshot.getValue(Interest.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -87,18 +109,7 @@ public class ExamFragment extends Fragment {
                 return friendlyMessage;
             }
         };
-        myFirebaseDatabaseReference=FirebaseDatabase.getInstance().getReference().child("interests").child(ausername);
-        myFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                interest =dataSnapshot.getValue(Interest.class);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         Log.v("Checkingmsg", "12");
         DatabaseReference messagesRef = mFirebaseDatabaseReference.child(MESSAGES_CHILD);
         FirebaseRecyclerOptions<Exam> options =
@@ -124,51 +135,363 @@ public class ExamFragment extends Fragment {
 
 
                 if (friendlyMessage.getExamName() != null) {
-                    Log.v("Checkingmsg", "17");
-                    if(friendlyMessage.getExamTag().equals("ComputerScience")&&interest.isComputerScience()){
+                   if(friendlyMessage.getExamTag().equals("ComputerScience")&&interest.isComputerScience()){
+                        Log.v("Checkingmsg", "18");
+                        viewHolder.examNameView.setText(friendlyMessage.getExamName());
+                        viewHolder.cardview.setVisibility(CardView.VISIBLE);
+                        Log.v("Checkingmsg", "19");
+                        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
+                        viewHolder.imageview.setImageResource(getImage());
+                        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+                        Log.v("Checkingmsg", "20");
+                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
+                        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
+                        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String url=friendlyMessage.getExamURL();
+                                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                                        url = "http://" + url;
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(myIntent);
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(getContext(), "No application can handle this request."
+                                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
 
-                        putViewHolder(viewHolder,position,friendlyMessage);
                     }
-                    if(friendlyMessage.getExamTag().equals("Biology")&&interest.isBiology()){
-                        putViewHolder(viewHolder,position,friendlyMessage);
-                    }
-                    if(friendlyMessage.getExamTag().equals("Mathematics")&&interest.isMathematics()){
-                        putViewHolder(viewHolder,position,friendlyMessage);
-                    }
-                    if(friendlyMessage.getExamTag().equals("GeneralKnowledge")&&interest.isGeneralKnowledge()){
-                        putViewHolder(viewHolder,position,friendlyMessage);
-                    }
-                    if(friendlyMessage.getExamTag().equals("Geography")&&interest.isGeography()){
+                    else if(friendlyMessage.getExamTag().equals("Biology")&&interest.isBiology()){
+                        viewHolder.examNameView.setText(friendlyMessage.getExamName());
+                        viewHolder.cardview.setVisibility(CardView.VISIBLE);
+                        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
+                        viewHolder.imageview.setImageResource(getImage());
+                        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
+                        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
+                        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String url=friendlyMessage.getExamURL();
+                                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                                        url = "http://" + url;
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(myIntent);
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(getContext(), "No application can handle this request."
+                                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
 
-                        putViewHolder(viewHolder,position,friendlyMessage);
                     }
-                    if(friendlyMessage.getExamTag().equals("Accounts")&&interest.isAccounts()){
+                    else if (friendlyMessage.getExamTag().equals("Mathematics")&&interest.isMathematics()){
+                        viewHolder.examNameView.setText(friendlyMessage.getExamName());
+                        viewHolder.cardview.setVisibility(CardView.VISIBLE);
+                        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
+                        viewHolder.imageview.setImageResource(getImage());
+                        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
+                        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
+                        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String url=friendlyMessage.getExamURL();
+                                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                                        url = "http://" + url;
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(myIntent);
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(getContext(), "No application can handle this request."
+                                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
 
-                        putViewHolder(viewHolder,position,friendlyMessage);
                     }
-                    if(friendlyMessage.getExamTag().equals("Politics")&&interest.isPolitics()){
+                    else if(friendlyMessage.getExamTag().equals("GeneralKnowledge")&&interest.isGeneralKnowledge()){
+                        viewHolder.examNameView.setText(friendlyMessage.getExamName());
+                        viewHolder.cardview.setVisibility(CardView.VISIBLE);
+                        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
+                        viewHolder.imageview.setImageResource(getImage());
+                        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
+                        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
+                        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String url=friendlyMessage.getExamURL();
+                                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                                        url = "http://" + url;
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(myIntent);
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(getContext(), "No application can handle this request."
+                                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
 
-                        putViewHolder(viewHolder,position,friendlyMessage);
                     }
-                    if(friendlyMessage.getExamTag().equals("Economics")&&interest.isEconomics()){
+                    else if(friendlyMessage.getExamTag().equals("Geography")&&interest.isGeography()){
 
-                        putViewHolder(viewHolder,position,friendlyMessage);
+                        viewHolder.examNameView.setText(friendlyMessage.getExamName());
+                        viewHolder.cardview.setVisibility(CardView.VISIBLE);
+                        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
+                        viewHolder.imageview.setImageResource(getImage());
+                        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
+                        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
+                        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String url=friendlyMessage.getExamURL();
+                                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                                        url = "http://" + url;
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(myIntent);
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(getContext(), "No application can handle this request."
+                                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
                     }
-                    if(friendlyMessage.getExamTag().equals("Cricket")&&interest.isCricket()){
+                    else if(friendlyMessage.getExamTag().equals("Accounts")&&interest.isAccounts()){
 
-                        putViewHolder(viewHolder,position,friendlyMessage);
+                        viewHolder.examNameView.setText(friendlyMessage.getExamName());
+                        viewHolder.cardview.setVisibility(CardView.VISIBLE);
+                        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
+                        viewHolder.imageview.setImageResource(getImage());
+                        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
+                        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
+                        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String url=friendlyMessage.getExamURL();
+                                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                                        url = "http://" + url;
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(myIntent);
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(getContext(), "No application can handle this request."
+                                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
                     }
-                    if(friendlyMessage.getExamTag().equals("Football")&&interest.isFootball()){
+                    else if(friendlyMessage.getExamTag().equals("Politics")&&interest.isPolitics()){
+                        viewHolder.examNameView.setText(friendlyMessage.getExamName());
+                        viewHolder.cardview.setVisibility(CardView.VISIBLE);
+                        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
+                        viewHolder.imageview.setImageResource(getImage());
+                        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
+                        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
+                        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String url=friendlyMessage.getExamURL();
+                                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                                        url = "http://" + url;
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(myIntent);
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(getContext(), "No application can handle this request."
+                                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
 
-                        putViewHolder(viewHolder,position,friendlyMessage);
                     }
-                    if(friendlyMessage.getExamTag().equals("Badminton")&&interest.isBadminton()){
+                    else if(friendlyMessage.getExamTag().equals("Economics")&&interest.isEconomics()){
 
-                        putViewHolder(viewHolder,position,friendlyMessage);
+                        viewHolder.examNameView.setText(friendlyMessage.getExamName());
+                        viewHolder.cardview.setVisibility(CardView.VISIBLE);
+                        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
+                        viewHolder.imageview.setImageResource(getImage());
+                        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
+                        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
+                        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String url=friendlyMessage.getExamURL();
+                                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                                        url = "http://" + url;
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(myIntent);
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(getContext(), "No application can handle this request."
+                                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
                     }
-                    if(friendlyMessage.getExamTag().equals("Technology")&&interest.isTechnology()){
+                    else if(friendlyMessage.getExamTag().equals("Cricket")&&interest.isCricket()){
 
-                        putViewHolder(viewHolder,position,friendlyMessage);
+                        viewHolder.examNameView.setText(friendlyMessage.getExamName());
+                        viewHolder.cardview.setVisibility(CardView.VISIBLE);
+                        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
+                        viewHolder.imageview.setImageResource(getImage());
+                        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
+                        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
+                        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String url=friendlyMessage.getExamURL();
+                                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                                        url = "http://" + url;
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(myIntent);
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(getContext(), "No application can handle this request."
+                                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+                    }
+                    else if(friendlyMessage.getExamTag().equals("Football")&&interest.isFootball()){
+
+                        viewHolder.examNameView.setText(friendlyMessage.getExamName());
+                        viewHolder.cardview.setVisibility(CardView.VISIBLE);
+                        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
+                        viewHolder.imageview.setImageResource(getImage());
+                        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
+                        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
+                        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String url=friendlyMessage.getExamURL();
+                                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                                        url = "http://" + url;
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(myIntent);
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(getContext(), "No application can handle this request."
+                                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+                    }
+                    else if(friendlyMessage.getExamTag().equals("Badminton")&&interest.isBadminton()){
+
+                        viewHolder.examNameView.setText(friendlyMessage.getExamName());
+                        viewHolder.cardview.setVisibility(CardView.VISIBLE);
+                        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
+                        viewHolder.imageview.setImageResource(getImage());
+                        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
+                        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
+                        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String url=friendlyMessage.getExamURL();
+                                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                                        url = "http://" + url;
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(myIntent);
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(getContext(), "No application can handle this request."
+                                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+                    }
+                    else if(friendlyMessage.getExamTag().equals("Technology")&&interest.isTechnology()){
+
+                        viewHolder.examNameView.setText(friendlyMessage.getExamName());
+                        viewHolder.cardview.setVisibility(CardView.VISIBLE);
+                        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
+                        viewHolder.imageview.setImageResource(getImage());
+                        viewHolder.imageview.setVisibility(ImageView.VISIBLE);
+                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
+                        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
+                        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
+                        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String url=friendlyMessage.getExamURL();
+                                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                                        url = "http://" + url;
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(myIntent);
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(getContext(), "No application can handle this request."
+                                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
                     }
                     else{
                         viewHolder.cardview.setVisibility(CardView.GONE);
@@ -219,7 +542,7 @@ public class ExamFragment extends Fragment {
         public MessageViewHolder(View v) {
             super(v);
             examNameView= (TextView) itemView.findViewById(R.id.cardtext1);
-
+            imageview=itemView.findViewById(R.id.imageView6);
             cardview = (CardView) itemView.findViewById(R.id.cardview12);
             conducterView = (TextView) itemView.findViewById(R.id.cardtext2);
             examUrl=itemView.findViewById(R.id.textView3);
@@ -230,32 +553,13 @@ public class ExamFragment extends Fragment {
                               final Exam friendlyMessage){
 
         // viewHolder.imageview.setImageResource(R.drawable.notice);
-        viewHolder.examNameView.setText(friendlyMessage.getExamName());
-        viewHolder.cardview.setVisibility(CardView.VISIBLE);
-        viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
 
-        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
-        viewHolder.conducterView.setText(friendlyMessage.getExamConductor());
-        viewHolder.conducterView.setVisibility(TextView.VISIBLE);
-        viewHolder.examUrl.setText(friendlyMessage.getExamURL());
-        viewHolder.examUrl.setVisibility(TextView.VISIBLE);
-        viewHolder.examUrl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    String url=friendlyMessage.getExamURL();
-                    if (!url.startsWith("http://") && !url.startsWith("https://"))
-                        url = "http://" + url;
-                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(myIntent);
-                } catch (ActivityNotFoundException e) {
-                    Toast.makeText(getContext(), "No application can handle this request."
-                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
-            }
-        });
-
+    }
+    public int getImage(){
+        int [] array={R.drawable.exams,R.drawable.examse,R.drawable.examsw};
+        SecureRandom r=new SecureRandom();
+        int i=r.nextInt(2);
+        return array[i];
     }
 
 }

@@ -56,8 +56,8 @@
     <string name="plu">LAN</string>
     <string name="Other">Other</string>
     <string name="comp">Would you like to receive notifications?</string>
-    <string name="title_activity_profile_setting">ProfileSetting</string>
-    <string name="title_activity_parent">Servizy</string>
+    <string name="title_activity_profile_setting">Profile Setting</string>
+    <string name="title_activity_parent">Vision</string>
     <string-array name="spinnerregister">
         <item>Student</item>
         <item>Counsellor</item>
@@ -68,20 +68,37 @@
     <string name="select">Select Your Areas Of Interests:</string>
     <string name="ist">Mathematics</string>
     <string name="second">Biology</string>
-    <string name="third">General Knowledge</string>
+    <string name="third">GeneralKnowledge</string>
     <string name="fourth">Economics</string>
     <string name="Fifth">Technology</string>
-    <string name="Sixth">Computer Science</string>
+    <string name="Sixth">ComputerScience</string>
     <string name="seventh">Cricket</string>
     <string name="eight">Football</string>
     <string name="ninth">Badminton</string>
     <string name="tenth">Geography</string>
     <string name="eleventh">Politics</string>
     <string name="twelfth">Accounts</string>
-    <string name="title_activity_discuss">DiscussActivity</string>
-    <string name="title_activity_counsellor_profile">CounsellorProfile</string>
+    <string name="title_activity_discuss">Vision</string>
+    <string name="title_activity_counsellor_profile">Vision</string>
     <string name="select1">Select Your Areas Of Expertise:</string>
     <string name="swagat1">Hey Nice To See U Here..!!</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_add_exam">Add Exam</string>
+    <string name="title_activity_add_study">Add Study</string>
+    <string name="title_activity_add_institute">Add Institute</string>
+    <string-array name="spinit">
+        <item>Mathematics</item>
+        <item>Biology</item>
+        <item>GeneralKnowledge</item>
+        <item>Economics</item>
+        <item>Technology</item>
+        <item>ComputerScience</item>
+        <item>Cricket</item>
+        <item>Football</item>
+        <item>Badminton</item>
+        <item>Geography</item>
+        <item>Politics</item>
+        <item>Accounts</item>
+    </string-array>
 
 </resources>

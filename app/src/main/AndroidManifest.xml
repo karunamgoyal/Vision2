@@ -36,9 +36,22 @@
         <activity
             android:name=".CounsellorProfile"
             android:label="@string/title_activity_counsellor_profile"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Profile" />
+        <activity android:name=".GetStarted2" />
+        <activity
+            android:name=".AddExam"
+            android:label="@string/title_activity_add_exam"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".AddStudy"
+            android:label="@string/title_activity_add_study"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".addInstitute"
+            android:label="@string/title_activity_add_institute"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".Profile"/>
-        <activity android:name=".GetStarted2"/>
+        <activity android:name=".CounsellorActivity"></activity>
     </application>
 
 </manifest>

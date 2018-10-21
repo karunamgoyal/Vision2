@@ -37,9 +37,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = pref.edit();
         String user1 = pref.getString("user", "");
+        String userType=pref.getString("userType","");
         if (!user1.equals("")) {
             ausername = user1;
-            sendMessage();
+            if(userType.equals("Student"))
+                sendMessage();
+            else{
+                sendNotice();
+            }
+
         } else {
 
 
@@ -82,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                                     if (password.equals(p)) {
                                         ausername = u;
                                         editor.putString("user", u);
+                                        editor.putString("userType",rUser.getUserType());
                                         editor.commit();
                                         if(rUser.getUserType().equals("Student")){
                                             sendMessage();
@@ -130,12 +137,34 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendMessage() {
         Log.v("Checkingmsg","11");
-        Intent intent = new Intent(this, GetStarted.class);
+        SharedPreferences pref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        boolean flag=pref.getBoolean("getstarted",false);
+        Log.v("Hello",""+flag);
+        Intent intent;
+        if(!flag) {
+            Log.v("Hello","145");
+            intent = new Intent(this, GetStarted.class);
+        }
+        else{
+            intent = new Intent(this, StudentActivity.class);
+        }
         intent.putExtra(str, ausername);
         startActivity(intent);
         Log.v("Checkingmsg","11");
     }
     public void sendNotice(){
+        SharedPreferences pref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = pref.edit();
+        boolean flag=pref.getBoolean("getstarted2",false);
+        Intent intent;
+        if(!flag) {
+            intent = new Intent(this, GetStarted2.class);
+        }
+        else{
+            intent = new Intent(this, CounsellorActivity.class);
+        }
+        intent.putExtra(str, ausername);
+        startActivity(intent);
 
     }
     public void register(View v) {
