@@ -96,5 +96,6 @@ public class GetStarted extends AppCompatActivity {
         Intent intent = new Intent(this, StudentActivity.class);
         intent.putExtra(str, ausername);
         startActivity(intent);
+        finish();
     }
 }

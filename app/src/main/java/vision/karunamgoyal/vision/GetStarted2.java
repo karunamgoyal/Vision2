@@ -99,6 +99,7 @@ public class GetStarted2 extends AppCompatActivity {
         Intent intent = new Intent(this, CounsellorActivity.class);
         intent.putExtra(str, ausername);
         startActivity(intent);
+        finish();
     }
 }
 

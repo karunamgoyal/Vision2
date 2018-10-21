@@ -141,8 +141,8 @@ public class InstituteFragment extends Fragment {
                         viewHolder.cardview.setCardBackgroundColor(Color.parseColor("#ffffff"));
                         viewHolder.imageview.setImageResource(getImage());
                         viewHolder.imageview.setVisibility(ImageView.VISIBLE);
-
-                        viewHolder.examNameView.setVisibility(TextView.VISIBLE);
+                            Log.v("checkingurl",""+friendlyMessage.getUrl());
+                                                    viewHolder.examNameView.setVisibility(TextView.VISIBLE);
                         viewHolder.conducterView.setText(friendlyMessage.getInstituteDesc());
                         viewHolder.conducterView.setVisibility(TextView.VISIBLE);
                         viewHolder.examUrl.setText(friendlyMessage.getUrl());

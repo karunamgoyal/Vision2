@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         }
         intent.putExtra(str, ausername);
         startActivity(intent);
+        finish();
         Log.v("Checkingmsg","11");
     }
     public void sendNotice(){
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         }
         intent.putExtra(str, ausername);
         startActivity(intent);
+        finish();
 
     }
     public void register(View v) {

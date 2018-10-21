@@ -77,6 +77,8 @@ public class Register extends AppCompatActivity {
                                 reference1.child(u).setValue(ruser);
                                 Snackbar.make(view, "Succesfully Registered press back", Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
+                                sendmain();
+                                finish();
                             }
 
 

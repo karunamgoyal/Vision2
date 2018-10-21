@@ -28,7 +28,7 @@
     <string name="roomno">Room No.</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="button4">SUBMIT</string>
+    <string name="button4">Update</string>
     <string name="welcome_msg">Welcome!</string>
     <string name="sign_out">Sign Out</string>
     <string name="contacts_permission_rationale">Access to account information is required to sign in.</string>
@@ -56,7 +56,7 @@
     <string name="plu">LAN</string>
     <string name="Other">Other</string>
     <string name="comp">Would you like to receive notifications?</string>
-    <string name="title_activity_profile_setting">Profile Setting</string>
+    <string name="title_activity_profile_setting">Profile Settings</string>
     <string name="title_activity_parent">Vision</string>
     <string-array name="spinnerregister">
         <item>Student</item>

@@ -4,10 +4,10 @@ public class Institutes {
     private String institureName;
     private String instituteTag;
     private String instituteDesc;
-    private String Url;
+    private String url;
 
     public String getUrl() {
-        return Url;
+        return this.url;
     }
 
     private String id;
@@ -32,11 +32,11 @@ public class Institutes {
 
     }
 
-    public Institutes(String institureName, String instituteTag, String instituteDesc,String Url) {
+    public Institutes(String institureName, String instituteTag, String instituteDesc,String url) {
 
         this.institureName = institureName;
         this.instituteTag = instituteTag;
         this.instituteDesc = instituteDesc;
-        this.Url=Url;
+        this.url=url;
     }
 }
