@@ -61,10 +61,12 @@ public class InstituteFragment extends Fragment {
             ausername = StudentActivity.getMyData();
         else
             ausername = CounsellorActivity.getMyData();
+
         myFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference().child("interest").child(ausername);
         myFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
                 interest = dataSnapshot.getValue(Interest.class);
             }
 
@@ -86,6 +88,56 @@ public class InstituteFragment extends Fragment {
     public void onStart() {
         super.onStart();
         mFirebaseAdapter.startListening();
+        SharedPreferences pref = getActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        String userType=pref.getString("userType","");
+        if(userType.equals("Student"))
+            ausername=StudentActivity.getMyData();
+        else
+            ausername=CounsellorActivity.getMyData();
+
+        myFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference().child("interest").child(ausername);
+        myFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                    interest = dataSnapshot.getValue(Interest.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }public void onDestroy() {
+        super.onDestroy();
+        mFirebaseAdapter.stopListening();
+    }
+
+    public void onResume() {
+        super.onResume();
+        mFirebaseAdapter.startListening();
+        SharedPreferences pref = getActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        String userType=pref.getString("userType","");
+        if(userType.equals("Student"))
+            ausername=StudentActivity.getMyData();
+        else
+            ausername=CounsellorActivity.getMyData();
+
+        myFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference().child("interest").child(ausername);
+        myFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                    interest = dataSnapshot.getValue(Interest.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 

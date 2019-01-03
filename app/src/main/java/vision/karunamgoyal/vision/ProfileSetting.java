@@ -31,7 +31,7 @@ public class ProfileSetting extends AppCompatActivity
     private TextView name;
     private TextView mail;
     private TextView phno;
-    private TextView userType;
+
     private String str = "Message Checking";
     private String ausername;
 
@@ -88,8 +88,10 @@ public class ProfileSetting extends AppCompatActivity
                     final String name1 = name.getText().toString();
                     final String mail1 = mail.getText().toString();
                     final String phno1 = phno.getText().toString();
-
-                    /*RegisterUser ruser = new RegisterUser(name1, mail1, phno1, rollno1, roomno1, hno1);
+                    SharedPreferences pref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+                    final SharedPreferences.Editor editor = pref.edit();
+                    String userType = pref.getString("userType", "");
+                    RegisterAdminUser ruser = new RegisterAdminUser(name1, mail1, phno1,userType);
                     reference1.setValue(ruser);
                     Snackbar.make(v, "Profile Updated", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();

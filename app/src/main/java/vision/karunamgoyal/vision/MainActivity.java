@@ -23,10 +23,12 @@ public class MainActivity extends AppCompatActivity {
     Button a;
     TextView textView;
     private String ausername;
-
+    boolean flag2 = false;
     private String str = "Message Checking";
     private String password;
     private RegisterAdminUser rUser;
+    DatabaseReference mdatabadereference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = pref.edit();
         String user1 = pref.getString("user", "");
-        String userType=pref.getString("userType","");
+        String userType = pref.getString("userType", "");
         if (!user1.equals("")) {
             ausername = user1;
-            if(userType.equals("Student"))
+            if (userType.equals("Student"))
                 sendMessage();
-            else{
+            else {
                 sendNotice();
             }
 
@@ -58,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
                     final String p = textView2.getText().toString();
                     if (!u.equals("")) {
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("adminusers").child(u);
-                        DatabaseReference refrenceUser=FirebaseDatabase.getInstance().getReference().child("registeradminuser").child(u);
+                        DatabaseReference refrenceUser = FirebaseDatabase.getInstance().getReference().child("registeradminuser").child(u);
                         refrenceUser.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                rUser=dataSnapshot.getValue(RegisterAdminUser.class);
+                                rUser = dataSnapshot.getValue(RegisterAdminUser.class);
                             }
 
                             @Override
@@ -81,23 +83,22 @@ public class MainActivity extends AppCompatActivity {
                                     try {
                                         Trippledes Des = new Trippledes();
                                         password = Des.decrypt(user.getPassword());
-                                        Log.v("Checkingmsg","11");
+                                        Log.v("Checkingmsg", "11");
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
                                     if (password.equals(p)) {
                                         ausername = u;
                                         editor.putString("user", u);
-                                        editor.putString("userType",rUser.getUserType());
+                                        editor.putString("userType", rUser.getUserType());
                                         editor.commit();
-                                        if(rUser.getUserType().equals("Student")){
+                                        if (rUser.getUserType().equals("Student")) {
                                             sendMessage();
-                                        }
-                                        else{
+                                        } else {
                                             sendNotice();
                                         }
 
-                                        Log.v("Checkingmsg","11");
+                                        Log.v("Checkingmsg", "11");
                                     } else {
                                         Snackbar.make(view, "Wrong Password", Snackbar.LENGTH_LONG)
                                                 .setAction("Action", null).show();
@@ -136,42 +137,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMessage() {
-        Log.v("Checkingmsg","11");
+        Log.v("Checkingmsg", "11");
         SharedPreferences pref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
-        boolean flag=pref.getBoolean("getstarted",false);
-        Log.v("Hello",""+flag);
+
         Intent intent;
-        if(!flag) {
-            Log.v("Hello","145");
-            intent = new Intent(this, GetStarted.class);
-        }
-        else{
-            intent = new Intent(this, StudentActivity.class);
-        }
-        intent.putExtra(str, ausername);
+                intent = new Intent(this, GetStarted.class);
+                intent.putExtra(str, ausername);
+
+
         startActivity(intent);
         finish();
-        Log.v("Checkingmsg","11");
+        Log.v("Checkingmsg", "11");
     }
-    public void sendNotice(){
+
+    public void sendNotice() {
         SharedPreferences pref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = pref.edit();
-        boolean flag=pref.getBoolean("getstarted2",false);
         Intent intent;
-        if(!flag) {
-            intent = new Intent(this, GetStarted2.class);
-        }
-        else{
-            intent = new Intent(this, CounsellorActivity.class);
-        }
-        intent.putExtra(str, ausername);
+        intent = new Intent(this, GetStarted2.class);
+                intent.putExtra(str, ausername);
+
         startActivity(intent);
         finish();
 
     }
+
     public void register(View v) {
         Intent intent = new Intent(this, Register.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

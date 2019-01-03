@@ -48,38 +48,42 @@ public class GetStarted extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    System.out.println("Hello");
                     sendtoHomepage();
+                }
+                else{
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Biology=findViewById(R.id.checkBox3);
+                            Mathematics=findViewById(R.id.checkBox);
+                            Technology=findViewById(R.id.checkBox7);
+                            ComputerScience=findViewById(R.id.checkBox12);
+                            GeneralKnowledge=findViewById(R.id.checkBox5);
+                            Economics=findViewById(R.id.checkBox9);
+                            Cricket=findViewById(R.id.checkBox11);
+                            FootBall=findViewById(R.id.checkBox2);
+                            Badminton=findViewById(R.id.checkBox4);
+                            Geography=findViewById(R.id.checkBox10);
+                            Politics=findViewById(R.id.checkBox8);
+                            Accounts=findViewById(R.id.checkBox6);
+                            Interest interest=new Interest(Mathematics.isChecked(),Biology.isChecked(),GeneralKnowledge.isChecked(),Economics.isChecked(),Technology.isChecked(),ComputerScience.isChecked(),
+                                    Cricket.isChecked(),FootBall.isChecked(),Badminton.isChecked(),Geography.isChecked(),Politics.isChecked(),Accounts.isChecked());
+                            Log.v("checkingtheerror","78");
+                            mdatabadereference.setValue(interest);
+                            Log.v("checkingtheerror","78");
+
+                            sendtoHomepage();
+
+                        }
+                    });
+
                 }
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Biology=findViewById(R.id.checkBox3);
-                Mathematics=findViewById(R.id.checkBox);
-                Technology=findViewById(R.id.checkBox7);
-                ComputerScience=findViewById(R.id.checkBox12);
-                GeneralKnowledge=findViewById(R.id.checkBox5);
-                Economics=findViewById(R.id.checkBox9);
-                Cricket=findViewById(R.id.checkBox11);
-                FootBall=findViewById(R.id.checkBox2);
-                Badminton=findViewById(R.id.checkBox4);
-                Geography=findViewById(R.id.checkBox10);
-                Politics=findViewById(R.id.checkBox8);
-                Accounts=findViewById(R.id.checkBox6);
-                Interest interest=new Interest(Mathematics.isChecked(),Biology.isChecked(),GeneralKnowledge.isChecked(),Economics.isChecked(),Technology.isChecked(),ComputerScience.isChecked(),
-                        Cricket.isChecked(),FootBall.isChecked(),Badminton.isChecked(),Geography.isChecked(),Politics.isChecked(),Accounts.isChecked());
-                Log.v("checkingtheerror","78");
-                mdatabadereference.setValue(interest);
-                Log.v("checkingtheerror","78");
-
-                sendtoHomepage();
 
             }
         });

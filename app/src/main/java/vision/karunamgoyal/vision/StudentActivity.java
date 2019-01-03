@@ -86,7 +86,25 @@ public class StudentActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+    protected void onRestart() {
+        super.onRestart();
+        Intent in = getIntent();
+        ausername = in.getStringExtra(str);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent in = getIntent();
+        ausername = in.getStringExtra(str);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent in = getIntent();
+        ausername = in.getStringExtra(str);
+    }
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

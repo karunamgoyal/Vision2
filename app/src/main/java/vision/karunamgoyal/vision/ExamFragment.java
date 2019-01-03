@@ -56,12 +56,58 @@ public class ExamFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mFirebaseAdapter.stopListening();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         mFirebaseAdapter.startListening();
+
+        myFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference().child("interest").child(ausername);
+        myFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                    interest = dataSnapshot.getValue(Interest.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mFirebaseAdapter.startListening();
+        SharedPreferences pref = getActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        String userType=pref.getString("userType","");
+        if(userType.equals("Student"))
+            ausername=StudentActivity.getMyData();
+        else
+            ausername=CounsellorActivity.getMyData();
 
+        myFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference().child("interest").child(ausername);
+        myFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                    interest = dataSnapshot.getValue(Interest.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +119,7 @@ public class ExamFragment extends Fragment {
             ausername=StudentActivity.getMyData();
         else
             ausername=CounsellorActivity.getMyData();
+
         myFirebaseDatabaseReference=FirebaseDatabase.getInstance().getReference().child("interest").child(ausername);
         myFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -86,6 +133,12 @@ public class ExamFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mFirebaseAdapter.stopListening();
     }
 
     @Override
@@ -508,6 +561,7 @@ public class ExamFragment extends Fragment {
 
             }
         };
+
 
         mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
